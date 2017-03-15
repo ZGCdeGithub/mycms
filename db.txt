@@ -1,0 +1,44 @@
+create database cms;
+create table cms_admin(
+	adm_id mediumint(8) unsigned not null auto_increment primary key,
+	adm_username varchar(20) not null,
+	adm_password char(40) not null,
+	adm_level tinyint(1) unsigned not null default 1,
+	adm_logincount smallint(5) not null default 0,
+	adm_lastip varchar(20) not null default '000.000.000.000',
+	adm_lasttime datetime not null,
+	adm_regtime datetime not null
+)
+
+insert into cms_admin(adm_username,adm_password,adm_level,adm_lasttime,adm_regtime) values('admin',SHA1(123456),6,now(),now());
+insert into cms_admin(adm_username,adm_password,adm_level,adm_lasttime,adm_regtime) values('小昌',SHA1(123456),6,now(),now());
+insert into cms_admin(adm_username,adm_password,adm_level,adm_lasttime,adm_regtime) values('明明',SHA1(123456),5,now(),now());
+insert into cms_admin(adm_username,adm_password,adm_level,adm_lasttime,adm_regtime) values('丽丽',SHA1(123456),4,now(),now());
+insert into cms_admin(adm_username,adm_password,adm_level,adm_lasttime,adm_regtime) values('亮亮',SHA1(123456),3,now(),now());
+
+
+create table cms_level(
+	lev_id mediumint(8) unsigned not null auto_increment primary key,
+	lev_name varchar(20) not null,
+	lev_info varchar(200)
+)
+insert into cms_level(lev_name,lev_info) values('超级管理员','超级管理员');
+insert into cms_level(lev_name,lev_info) values('普通管理员','普通管理员');
+insert into cms_level(lev_name,lev_info) values('发帖专员','只能上传文档');
+insert into cms_level(lev_name,lev_info) values('评论专员','只能管理评论');
+insert into cms_level(lev_name,lev_info) values('普通会员','浏览网页兵发表评论');
+insert into cms_level(lev_name,lev_info) values('游客','只能浏览网页');
+
+create table cms_nav(
+	nav_id mediumint(8) unsigned not null auto_increment primary key,
+	nav_name varchar(36) not null,
+	nav_info varchar(200),
+	nav_pid mediumint(8) unsigned not null default 0,
+	nav_sort mediumint(8) unsigned not null
+)
+
+insert into cms_nav(nav_name,nav_info,nav_pid,nav_sort) values('军事动态','关于军事的信息',0,1);
+insert into cms_nav(nav_name,nav_info,nav_pid,nav_sort) values('八卦娱乐','关于娱乐圈的信息',0,1);
+insert into cms_nav(nav_name,nav_info,nav_pid,nav_sort) values('时尚女人','关于时尚的信息',0,1);
+insert into cms_nav(nav_name,nav_info,nav_pid,nav_sort) values('科技频道','关于最新科技的信息',0,1);
+insert into cms_nav(nav_name,nav_info,nav_pid,nav_sort) values('智能手机','关于智能手机的信息',0,1);
